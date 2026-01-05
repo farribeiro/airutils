@@ -26,7 +26,10 @@ function airutils.physics(self)
     end
     local last_accel = vector.new()
     if self._last_accel then
-        last_accel = vector.new(self._last_accel)
+        --check if it's not NaN
+        if self._last_accel.x == self._last_accel.x and self._last_accel.y == self._last_accel.y and self._last_accel.z == self._last_accel.z then
+            last_accel = vector.new(self._last_accel)
+        end
     end
 
     if self.isinliquid then
@@ -109,6 +112,9 @@ function airutils.physics(self)
         end
     end
 
-    self.object:add_velocity(new_velocity)
+    --if it's not NaN, add velocity
+    if new_velocity.x == new_velocity.x and new_velocity.y == new_velocity.y and new_velocity.z == new_velocity.z then
+        self.object:add_velocity(new_velocity)
+    end
 end
 
